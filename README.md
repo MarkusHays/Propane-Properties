@@ -14,5 +14,5 @@ in the function called "single_density_calc()"
 ## Theory - EOS Models
 Intro on EOS models in generatl (IGL, RGL, vdW, cubic, BWR and finally modified BWR)
 
-Link to article: <add link here>
+Link to article: !add link here!
 
