@@ -1,5 +1,6 @@
 from scipy.interpolate import interp1d
 
+# Temperatures used when generating the database of vapor pressures and density bounds
 temp = [
     259.67,
     289.67,
@@ -24,7 +25,7 @@ temp = [
     859.67,
 ]
 
-
+# Liquid Upper Molar Density bound
 LU_MD = [
     0.9459,
     0.9190,
@@ -49,6 +50,7 @@ LU_MD = [
     0.2857,
 ]
 
+# Liquid Lower Molar Density bound
 LL_MD = [
     0.9408,
     0.9125,
@@ -73,7 +75,7 @@ LL_MD = [
     0.2857,
 ]
 
-
+# Vapor Upper Molar Density bound
 VU_MD = [
     8.40e-06,
     4.77e-05,
@@ -98,6 +100,7 @@ VU_MD = [
     0.2857,
 ]
 
+# Vapor Lower Molar Density bound
 VL_MD = [
     8.40e-06,
     7.53e-06,
@@ -122,6 +125,7 @@ VL_MD = [
     2.54e-06,
 ]
 
+# Vapor and pseudo-vapor pressures
 vapp = [
     2.34e-02,
     1.48e-01,
@@ -137,7 +141,7 @@ vapp = [
     2.75e02,
     3.86e02,
     5.27e02,
-    6.16e02,
+    6.16e02,  # <- Critical point
     8.74e02,
     1.05e03,
     1.22e03,
@@ -148,6 +152,9 @@ vapp = [
 
 
 def get_interp_functions():
+    """
+    Generate interpolation for density upper and lower limits.
+    """
     dens_upper_vapor = interp1d(temp, VU_MD)
     dens_lower_vapor = interp1d(temp, VL_MD)
     dens_upper_liquid = interp1d(temp, LU_MD)
@@ -156,5 +163,8 @@ def get_interp_functions():
 
 
 def get_vap_interp():
+    """
+    Generate interpolation for vapor pressure curve.
+    """
     vap_interp = interp1d(temp, vapp, kind="quadratic")
     return vap_interp
