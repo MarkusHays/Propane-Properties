@@ -11,11 +11,13 @@ class DensType(Enum):
 
 def calculate_density(p: float, T: float, dens_type: DensType):
     """
-    Some text
+    This function calculates the density (molar or mass) and fluid phase type using the mBWR EOS.
 
-    Some more text
+    The input to this function is pressrue (P), temperature (T) and density type (DENS_TYPE) (molar or mass).
 
-    Final part of text
+    The units of this function are [psia], [R] and [lb-moles/ft3] or [kg/m3].
+
+    The output is density (molar or mass) and fluid phase type (Liquid or Vapor).
     """
     dens_type = dens_type.value  # Make to a string for clearity in code
 
@@ -42,12 +44,13 @@ def molar_dens_2_mass_dens(density: float):
 
 def find_fluid_phase(p: float, T: float):
     """
-    Some text
+    This function finds the fluid phase type based on given vapor pressure curve data.
 
-    Some more text
+    The input to this function is pressrue (P) and temperature (T).
 
-    Final text part
+    The output is fluid phase type (Liquid or Vapor).
     """
+    _are_conditions_in_range(p, T)  # Check if (p,T) in range.
     vap_pres = calc_vapor_pressure(T)
 
     if vap_pres > p:
@@ -55,20 +58,22 @@ def find_fluid_phase(p: float, T: float):
     elif vap_pres < p:
         fluid_phase_type = "Liquid"
     else:
-        # TODO Raise exception that the fluid is on the vapor pressure curve
-        _are_conditions_in_range(p, T)
-        fluid_phase_type = _find_fluid_phase(T, p)
+        # The conditions of the fluid are on the vapor pressure curve!
+        fluid_phase_type = _user_specified_fluid_phase(T, p)
 
     return fluid_phase_type
 
 
 def calc_vapor_pressure(T):
     """
-    Some text
+    This function calculates the vapor pressure based on given vapor pressure data from
+    PhazeComp using PR with volume shifts.
 
-    Some more text
+    The input to this function is temperature (T).
 
-    Final text part
+    The units of this function is [psia] and [R]
+
+    The output is the vapor pressure.
     """
     # Check if T in vapor pressure curve or pseudo-vapor pressure curve (T < Tc or T > Tc)
     vap_pres_function = get_vap_interp()
@@ -77,6 +82,15 @@ def calc_vapor_pressure(T):
 
 
 def propane_bwr(dens: float, T: float):
+    """
+    This function calculates the pressure using the mBWR EOS.
+
+    The input to this function is molar density (DENS) and temperature (T).
+
+    The units of this function is [psia], [lb-moles/ft3] and [R].
+
+    The output is the single-phase pressure.
+    """
     # The units are in [ft], [lb], [R] and [lb-mole]
     R = 10.7335  # In units ft3.psia/R.lb-mole
 
@@ -108,7 +122,11 @@ def propane_bwr(dens: float, T: float):
 # ==========================================================
 
 
-def _find_fluid_phase(T: float, p: float):
+def _user_specified_fluid_phase(T: float, p: float):
+    """
+    This function askes the user to input the fluid phase if the conditions are at the
+    vapor pressure line.
+    """
     check = 0
     while check == 0:
         print("\n(1) Liquid\n(2) Vapor")
@@ -139,6 +157,9 @@ def _find_fluid_phase(T: float, p: float):
 
 
 def _are_conditions_in_range(p, T):
+    """
+    This function checks if the conditions (p,T) are in the bounds of the databased dataset.
+    """
     Tmin = -200 + 459.67  # degrees Rankine
     Tmax = 400 + 459.67  # degrees Rankine
     pmax = 10000  # psia
@@ -157,6 +178,10 @@ def _are_conditions_in_range(p, T):
 
 
 def _get_density_bounds(fluid_phase_type, T):
+    """
+    This function uses the databased upper and lower bounds for density to interpolate
+    the bounds of the density.
+    """
     [
         dens_upper_vapor,
         dens_lower_vapor,
@@ -176,6 +201,9 @@ def _get_density_bounds(fluid_phase_type, T):
 def _solve_density_root(
     fluid_phase_type: str, p: float, T: float, dens_lower: float, dens_upper: float
 ):
+    """
+    This function uses a scipy package to solve for the density using the mBWR EOS.
+    """
     if fluid_phase_type == "Liquid":
         initial_density = dens_upper
         dx = -0.0001
@@ -185,6 +213,7 @@ def _solve_density_root(
     diff_lower = _difference(dens_lower, T, p)
     diff_upper = _difference(dens_upper, T, p)
     cnt = 0
+    # Value of 100000 is arbitrary upper bound to avoid infinite loop!
     while (diff_lower * diff_upper > 0) and cnt < 100000:
         if diff_lower < 0:
             dens_upper *= 0.99
@@ -194,8 +223,12 @@ def _solve_density_root(
         diff_upper = _difference(dens_upper, T, p)
         cnt += 1
     if cnt == 100000:
-        test = 1
-        pass
+        # Raise exception
+        print("####################################################################")
+        print("####################################################################")
+        print("###  Maximum number of iterations reached searching for density  ###")
+        print("####################################################################")
+        print("####################################################################")
 
     results = root_scalar(
         _difference,
@@ -203,66 +236,15 @@ def _solve_density_root(
         args=(T, p),
         bracket=(dens_lower, dens_upper),
     )
-
-    # results = root_scalar(
-    #    _difference,
-    #    x0=initial_density,
-    #    x1=initial_density + dx,
-    #    method="secant",
-    #    args=(T, p),
-    #    bracket=(dens_lower, dens_upper),
-    # )
-    density = results.root
-    return density
+    return results.root
 
 
 def _difference(density: float, *args):
+    """
+    This file calculates the difference between the reported pressure (P) and the mBWR calculated pressure (P_BWR).
+    """
     T = args[0]
     p = args[1]
     p_bwr = propane_bwr(density, T)
     difference = p - p_bwr
     return difference
-
-
-def _liquid_upper_limit(T):
-    a0 = 2.883919e-2
-    a1 = 1.237724e-2
-    a2 = -5.929265e-5
-    a3 = 1.272258e-7
-    a4 = -1.292991e-10
-    a5 = 4.946095e-14
-    molar_density = a0 + a1 * T + a2 * T ** 2 + a3 * T ** 3 + a4 * T ** 4 + a5 * T ** 5
-    return molar_density
-
-
-def _liquid_lower_limit(T):
-    a0 = 3.590758
-    a1 = -3.138352e-2
-    a2 = 1.508490e-4
-    a3 = -3.675026e-7
-    a4 = 4.428079e-10
-    a5 = -2.116798e-13
-    molar_density = a0 + a1 * T + a2 * T ** 2 + a3 * T ** 3 + a4 * T ** 4 + a5 * T ** 5
-    return molar_density
-
-
-def _vapor_upper_limit(T):
-    a0 = -1.539523
-    a1 = 1.985460e-2
-    a2 = -1.003009e-4
-    a3 = 2.485524e-7
-    a4 = -3.032984e-10
-    a5 = 1.469470e-13
-    molar_density = a0 + a1 * T + a2 * T ** 2 + a3 * T ** 3 + a4 * T ** 4 + a5 * T ** 5
-    return molar_density
-
-
-def _vapor_lower_limit(T):
-    a0 = 2.809999e-5
-    a1 = -1.451954e-7
-    a2 = 3.857916e-10
-    a3 = -5.570498e-13
-    a4 = 4.154120e-16
-    a5 = -1.253100e-19
-    molar_density = a0 + a1 * T + a2 * T ** 2 + a3 * T ** 3 + a4 * T ** 4 + a5 * T ** 5
-    return molar_density

@@ -6,11 +6,11 @@ import propane_properties as pp
 
 def single_density_calc(pressure: float, temperature: float, dens_type: pp.DensType):
     """
-    Some text (description)
+    Function that calcualtes the density (molar or mass) and fluid phase type.
 
-    Some more text (input)
+    The input to this function is pressrue, temperature and density type (DENS_TYPE) (molar or mass).
 
-    Final text (output)
+    The output is density (molar or mass) and fluid phase type (Liquid or Vapor).
     """
     return pp.calculate_density(pressure, temperature, dens_type)
 
@@ -24,11 +24,12 @@ def calc_density_heatmap(
     dens_type: pp.DensType = pp.DensType.mass_density,
 ):
     """
-    Some text
+    This function calculates the density for a range of pressures and temperatures as a heatmap.
 
-    Some more text
+    The input parameters are minimum pressure (P_MIN), maximum pressure (P_MAX), minimum temperature (T_MIN),
+    maximum temperature (T_MAX) and optionally the number of pressure|temperature grids (N) and the density type.
 
-    Final text
+    The output of the function is a density heatmap as a figure in pyplot. (ADD export to Excel feature)
     """
     dens_matrix = np.zeros((N, N))
     phase_type_matrix = np.zeros((N, N))
