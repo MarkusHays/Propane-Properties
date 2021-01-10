@@ -12,7 +12,7 @@ in the function called "single_density_calc()"
 "calc_density_heatmap"
 
 ## Examples
-Examples of the features can be found in "example_calculations.py" and show the main features of the code.
+Examples of the features can be found in "example_calculations.py" and show the main features of the code. To get a detailed (refined) plot set the "number of grids in plot" or "N" to 500. However, this takes some time to generate with the existing code. 
 
 ## Making Contributions
 If you want to use the code or make contributions, then this is great! If you are planning on contributing to the code 
@@ -39,7 +39,10 @@ make it easier to understand. If there is some very complicated logic, please ma
 
 These points will be considered before the contribution is merged to the main branch in a pull-request (PR).
 
-## Theory - EOS Models
-Intro on EOS models in general (IGL, RGL, vdW, cubic, BWR and finally modified BWR)
+## Contact
+If you are interested in this code or how I solved it, please feel free to contact me [here](mailto:markushays@whitson.com) or via LinkedIn by searching for Markus Hays Nielsen.
 
-Link to article: In the works...
+## Theory - EOS Models
+**This is coming in the future.**
+
+Intro on EOS models in general (IGL, RGL, vdW, cubic, BWR and finally modified BWR), then specifics og solving the problem of this task.
