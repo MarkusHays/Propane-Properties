@@ -59,6 +59,8 @@ def calc_density_heatmap(
         units = "kg/m3"
     else:
         units = "lb-moles/ft3"
+    plt.colorbar(label=f"Density ({units})", cmap="RdYlGn")
+    plt.clim(0, 700)
     vapp_calc = get_vap_interp()
     temp_intrp = np.linspace(T_min, temp[:-6], num=500)
     vapp_intrp = vapp_calc(temp_intrp)
@@ -73,6 +75,4 @@ def calc_density_heatmap(
     plt.ylabel("Pressure (psia)", **axis_font)
     plt.xlim(300, 800)
     plt.ylim(0, 1700)
-    plt.colorbar(label=f"Density ({units})")
-    plt.clim(0, 700)
     plt.show()
