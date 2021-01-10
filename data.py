@@ -151,7 +151,7 @@ vapp = [
 ]
 
 
-def get_interp_functions():
+def get_interp_functions() -> (interp1d, interp1d, interp1d, interp1d):
     """
     Generate interpolation for density upper and lower limits.
     """
@@ -162,7 +162,7 @@ def get_interp_functions():
     return dens_upper_vapor, dens_lower_vapor, dens_upper_liquid, dens_lower_liquid
 
 
-def get_vap_interp():
+def get_vap_interp() -> interp1d:
     """
     Generate interpolation for vapor pressure curve.
     """

@@ -9,7 +9,7 @@ class DensType(Enum):
     mass_density = "Mass Density"  # mass / volume
 
 
-def calculate_density(p: float, T: float, dens_type: DensType):
+def calculate_density(p: float, T: float, dens_type: DensType) -> (float, str):
     """
     This function calculates the density (molar or mass) and fluid phase type using the mBWR EOS.
 
@@ -42,7 +42,7 @@ def molar_dens_2_mass_dens(density: float):
     return density * (44.062 / 0.062428)
 
 
-def find_fluid_phase(p: float, T: float):
+def find_fluid_phase(p: float, T: float) -> str:
     """
     This function finds the fluid phase type based on given vapor pressure curve data.
 
@@ -64,7 +64,7 @@ def find_fluid_phase(p: float, T: float):
     return fluid_phase_type
 
 
-def calc_vapor_pressure(T):
+def calc_vapor_pressure(T) -> float:
     """
     This function calculates the vapor pressure based on given vapor pressure data from
     PhazeComp using PR with volume shifts.
@@ -81,7 +81,7 @@ def calc_vapor_pressure(T):
     return vap_pres
 
 
-def propane_bwr(dens: float, T: float):
+def propane_bwr(dens: float, T: float) -> float:
     """
     This function calculates the pressure using the mBWR EOS.
 
@@ -122,7 +122,7 @@ def propane_bwr(dens: float, T: float):
 # ==========================================================
 
 
-def _user_specified_fluid_phase(T: float, p: float):
+def _user_specified_fluid_phase(T: float, p: float) -> str:
     """
     This function askes the user to input the fluid phase if the conditions are at the
     vapor pressure line.
@@ -174,10 +174,9 @@ def _are_conditions_in_range(p, T):
         print("#######################################################################")
         print("#######################################################################")
         exit()
-        pass
 
 
-def _get_density_bounds(fluid_phase_type, T):
+def _get_density_bounds(fluid_phase_type, T) -> (float, float):
     """
     This function uses the databased upper and lower bounds for density to interpolate
     the bounds of the density.
@@ -200,7 +199,7 @@ def _get_density_bounds(fluid_phase_type, T):
 
 def _solve_density_root(
     fluid_phase_type: str, p: float, T: float, dens_lower: float, dens_upper: float
-):
+) -> float:
     """
     This function uses a scipy package to solve for the density using the mBWR EOS.
     """
@@ -239,7 +238,7 @@ def _solve_density_root(
     return results.root
 
 
-def _difference(density: float, *args):
+def _difference(density: float, *args) -> float:
     """
     This file calculates the difference between the reported pressure (P) and the mBWR calculated pressure (P_BWR).
     """
