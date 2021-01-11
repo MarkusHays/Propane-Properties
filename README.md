@@ -23,6 +23,8 @@ Examples of the features can be found in "example_calculations.py" and show the 
 If you want to use the code or make contributions, then this is great! If you are planning on contributing to the code 
 I prefer that you apply similar code structure to the current code and also follow the following conventions:
 
+0) When making changes, **ALWAYS** make a new branch and remember to make short and concise comments in the commits etc.
+
 1) Classes are in Pascal format e.g. `MyClass`.
 
 2) Functions, variables and moduels are in snake format e.g. `my_function()` | `my_variable` | `my_module`.
