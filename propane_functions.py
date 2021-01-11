@@ -4,7 +4,9 @@ from data import temp, vapp, get_vap_interp
 import propane_properties as pp
 
 
-def single_density_calc(pressure: float, temperature: float, dens_type: pp.DensType):
+def single_density_calc(
+    pressure: float, temperature: float, dens_type: pp.DensType
+) -> float:
     """
     Function that calcualtes the density (molar or mass) and fluid phase type.
 
