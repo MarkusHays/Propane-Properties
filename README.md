@@ -14,9 +14,8 @@ in the function called "single_density_calc()"
 ## Examples
 Examples of the features can be found in "example_calculations.py" and show the main features of the code. To get a detailed (refined) plot set the "number of grids in plot" or "N" to 500. However, this takes some time to generate with the existing code. 
 
-<center>
-![Figure showing density of Propane](results/density-matrix.png)
-</center>
+![density-matrix](https://user-images.githubusercontent.com/31182250/104158808-695daa00-53ee-11eb-90be-ef69ffa4aab3.png)
+
 
 **Figure 1**: Example result of using `calc_density_heatmap()` with `N=500`.
 
