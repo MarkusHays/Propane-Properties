@@ -16,7 +16,7 @@ Examples of the features can be found in "example_calculations.py" and show the 
 
 To define the density type (molar or mass density) use the `DensityType` class in the `propane_properties` package which can be imported as `pp`. An example is given below
 
-```
+```python
 from propane_properties import DensType
 
 # Choose the density type (mass denisty | molar density)
@@ -25,7 +25,7 @@ dens_type = DensType.mass_density
 
 An example of the using `single_density_calc()` is given below
 
-```
+```python
 from propane_properties import DensType
 from propane_functions import single_density_calc
 
@@ -41,7 +41,7 @@ temperature = 289.67  # + 459.67  # Temperature in [R] units - 60 + 459.67
 
 An example of using `calc_density_heatmap()` is given below
 
-```
+```python
 from propane_properties import DensType
 from propane_functions import calc_density_heatmap
 
