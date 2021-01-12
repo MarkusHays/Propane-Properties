@@ -55,7 +55,11 @@ minimum_pressure = 0.0234  # Units [psia]
 maximum_pressure = 1724.0  # Units [psia]
 num_grid_poitns = 500  # (Optional) Number of grids in plot. Default is 50 in none is given
 calc_density_heatmap(
-    minimum_pressure, maximum_pressure, minimum_temperature, maximum_temperature, N
+    minimum_pressure, 
+    maximum_pressure, 
+    minimum_temperature, 
+    maximum_temperature, 
+    num_grid_poitns
 )
 ```
 
