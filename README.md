@@ -14,10 +14,59 @@ in the function called `single_density_calc()`
 ## Examples
 Examples of the features can be found in "example_calculations.py" and show the main features of the code. To get a detailed (refined) plot set the "number of grids in plot" or `N` to 500. However, this takes some time to generate with the existing code. 
 
+To define the density type (molar or mass density) use the `DensityType` class in the `propane_properties` package which can be imported as `pp`. An example is given below
+
+```
+import propane_properties as pp
+
+# Choose the density type (mass denisty | molar density)
+dens_type = pp.DensType.mass_density
+```
+
+An example of the using `single_density_calc()` is given below
+
+```
+from propane_functions import single_density_calc
+import propane_properties as pp
+
+# Choose the density type (mass denisty | molar density)
+dens_type = pp.DensType.mass_density
+
+# Example 1: Single condition calculation
+pressure = 400  # Pressure in [psia] units
+temperature = 289.67  # + 459.67  # Temperature in [R] units - 60 + 459.67
+
+[density, phase_type] = single_density_calc(pressure, temperature, dens_type)
+```
+
+An example of using `calc_density_heatmap()` is given below
+
+```
+from propane_functions import single_density_calc
+import propane_properties as pp
+
+# Choose the density type (mass denisty | molar density)
+dens_type = pp.DensType.mass_density
+
+# Example 2: Plot heatmap of densities for range of pres. and temp.
+minimum_temperature = 259.67  # Units [R]
+maximum_temperature = 859.67  # Units [R]
+minimum_pressure = 0.0234  # Units [psia]
+maximum_pressure = 1724.0  # Units [psia]
+N = 500  # (Optional) Number of grids in plot. Default is 50 in none is given
+calc_density_heatmap(
+    minimum_pressure, maximum_pressure, minimum_temperature, maximum_temperature, N
+)
+```
+
+resulting in the figure below
+
 ![density-matrix](https://user-images.githubusercontent.com/31182250/104158808-695daa00-53ee-11eb-90be-ef69ffa4aab3.png)
 
 
 **Figure 1**: Example result of using `calc_density_heatmap()` with `N=500`.
+
+These examples are also given in the "example_calculations.py" file.
 
 ## Making Contributions
 If you want to use the code or make contributions, then this is great! If you are planning on contributing to the code 
