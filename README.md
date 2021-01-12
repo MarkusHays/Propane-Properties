@@ -68,7 +68,7 @@ resulting in the figure below
 ![density-matrix](https://user-images.githubusercontent.com/31182250/104158808-695daa00-53ee-11eb-90be-ef69ffa4aab3.png)
 
 
-**Figure 1**: Example result of using `calc_density_heatmap()` with `N=500`.
+**Figure 1**: Example result of using `calc_density_heatmap()` with `num_grid_poitns=500`.
 
 These examples are also given in the "example_calculations.py" file.
 
