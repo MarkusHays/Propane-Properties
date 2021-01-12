@@ -12,7 +12,7 @@ in the function called `single_density_calc()`
 `calc_density_heatmap()`
 
 ## Examples
-Examples of the features can be found in "example_calculations.py" and show the main features of the code. To get a detailed (refined) plot set the "number of grids in plot" or `N` to 500. However, this takes some time to generate with the existing code. 
+Examples of the features can be found in "example_calculations.py" and show the main features of the code. To get a detailed (refined) plot set the "number of grids in plot" or `num_grid_poitns` to 500. However, this takes some time to generate with the existing code. 
 
 To define the density type (molar or mass density) use the `DensityType` class in the `propane_properties` package which can be imported as `pp`. An example is given below
 
@@ -53,7 +53,7 @@ minimum_temperature = 259.67  # Units [R]
 maximum_temperature = 859.67  # Units [R]
 minimum_pressure = 0.0234  # Units [psia]
 maximum_pressure = 1724.0  # Units [psia]
-N = 500  # (Optional) Number of grids in plot. Default is 50 in none is given
+num_grid_poitns = 500  # (Optional) Number of grids in plot. Default is 50 in none is given
 calc_density_heatmap(
     minimum_pressure, maximum_pressure, minimum_temperature, maximum_temperature, N
 )
