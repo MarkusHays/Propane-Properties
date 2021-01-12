@@ -1,11 +1,10 @@
 # This is an example file of how to use the PropaneProps package
 
-import propane_properties as pp
-
+from propane_properties import DensType
 from propane_functions import single_density_calc, calc_density_heatmap
 
 # Choose the density type (mass denisty | molar density)
-dens_type = pp.DensType.mass_density
+dens_type = DensType.mass_density
 
 # Example 1: Single condition calculation
 pressure = 400  # Pressure in [psia] units
