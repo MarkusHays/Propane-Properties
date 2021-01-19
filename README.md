@@ -19,6 +19,29 @@ in the function called `single_density_calc()`
 2) Calculate the density at a variaty of pressures and temperatures using the function called
 `calc_density_heatmap()`
 
+
+## Installation
+
+1. Clone this repository
+
+```
+git clone https://github.com/MarkusHays/Propane-Properties.git
+```
+
+2. cd to the directory:
+
+```
+cd Propane-Properties
+```
+
+3. Run pip:
+
+```
+pip install -e .
+```
+
+You can now use `propane_propeties` anywhere on your machine by adding `import propane_properties`.
+
 ## Examples
 Examples of the features can be found in "example_calculations.py" and show the main features of the code. To get a detailed (refined) plot set the "number of grids in plot" or `num_grid_poitns` to 500. However, this takes some time to generate with the existing code.
 
