@@ -1,7 +1,6 @@
 # This is an example file of how to use the PropaneProps package
 
-from propane_properties import DensType
-from propane_functions import single_density_calc, calc_density_heatmap
+from propane_properties import DensType, single_density_calc, calc_density_heatmap
 
 # Choose the density type (mass denisty | molar density)
 dens_type = DensType.mass_density
