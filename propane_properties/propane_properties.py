@@ -1,5 +1,5 @@
 from enum import Enum
-from data import get_interp_functions, get_vap_interp
+from propane_properties.data import get_interp_functions, get_vap_interp
 from math import exp
 from scipy.optimize import root_scalar
 
