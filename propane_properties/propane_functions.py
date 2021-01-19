@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from data import temp, vapp, get_vap_interp
+from propane_properties.data import temp, vapp, get_vap_interp
 import propane_properties as pp
 
 
